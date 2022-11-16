@@ -1,17 +1,18 @@
 <template>
   <div class="home">
-    <Home />
+    <main-home />
+    <!-- <router-view></router-view> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Home from "@/components/home/Home.vue";
+import MainHome from "@/components/home/MainHome.vue";
 
 export default {
   name: "HomeView",
   components: {
-    Home,
+    MainHome,
   },
 };
 </script>

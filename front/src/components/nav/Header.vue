@@ -10,14 +10,14 @@
         <b-navbar-nav class="navbar-nav me-auto mb-lg-0">
           <b-nav-item href="#"
             ><router-link
-              :to="{ name: 'home' }"
+              :to="{ name: 'main' }"
               class="navbar-brand text-primary fw-bold"
               ><b-icon icon="house" font-scale="2"></b-icon> Where Is My
               Home</router-link
             ></b-nav-item
           >
           <b-nav-item href="#" class="nav-item"
-            ><router-link :to="{ name: 'list' }" class="nav-link"
+            ><router-link :to="{ name: 'board' }" class="nav-link"
               ><b-icon icon="clipboard-check" font-scale="2"></b-icon>
               공지사항</router-link
             ></b-nav-item

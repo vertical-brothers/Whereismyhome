@@ -62,11 +62,15 @@
 
 <script>
 export default {
-  name: "HomeComponent",
+  name: "MainHome",
   data() {
     return {
       thumbNail: require("@/assets/home_apartment.jpg"),
+      keyword: "",
     };
+  },
+  methods: {
+    search() {},
   },
 };
 </script>
