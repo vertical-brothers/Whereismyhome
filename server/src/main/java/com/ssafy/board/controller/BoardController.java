@@ -57,27 +57,27 @@ public class BoardController {
 		
 		if(map.get("key") == null) map.put("key", "");
 		if(map.get("word") == null) map.put("word", "");
-//		List<BoardDto> list = boardService.listArticle(map);
-//		logger.debug(list.toString());
-//		int articlecnt = boardService.totalArticleCount(map);
-//
-//		int spl = SizeConstant.SIZE_PER_LIST;
-//		int pl = SizeConstant.LIST_SIZE;
+		List<BoardDto> list = boardService.listArticle(map);
+		logger.debug(list.toString());
+	int articlecnt = boardService.totalArticleCount(map);
 
-//		int pageno = Integer.parseInt(map.get("pgno"));
+		int spl = SizeConstant.SIZE_PER_LIST;
+	int pl = SizeConstant.LIST_SIZE;
 
-//		int startpage = (pageno - 1) / 10 * pl + 1;
-		return null;
-//		int endpage = startpage + 9;
-//		int lastpage = articlecnt / spl + 1;
-//
-//		// 33-20 < 10
-//		if (articlecnt - spl * startpage < spl * pl) { // 전체 개수-현재페이지까지 개수가 지정된 페이지 수 보다 작으면
-//			endpage = articlecnt / spl + 1;
-//		}
-//
-//		ResponseEntity<List<BoardDto>> result = ResponseEntity.ok().body(list);
-//		return result;
+		int pageno = Integer.parseInt(map.get("pgno"));
+
+		int startpage = (pageno - 1) / 10 * pl + 1;
+
+		int endpage = startpage + 9;
+	int lastpage = articlecnt / spl + 1;
+
+	// 33-20 < 10
+	if (articlecnt - spl * startpage < spl * pl) { // 전체 개수-현재페이지까지 개수가 지정된 페이지 수 보다 작으면
+			endpage = articlecnt / spl + 1;
+	}
+
+	ResponseEntity<List<BoardDto>> result = ResponseEntity.ok().body(list);
+		return result;
 
 	}
 

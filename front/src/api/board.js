@@ -3,7 +3,10 @@ import { apiInstance } from "@/api/index.js";
 const api = apiInstance();
 
 function listArticle(param, success, fail) {
-  api.get(`/board`, { params: param }).then(success).catch(fail);
+  api
+    .get(`/board/?pgno=${param.pgno}&key=${param.key}&word=${param.word}`)
+    .then(success)
+    .catch(fail);
 }
 
 function writeArticle(article, success, fail) {
