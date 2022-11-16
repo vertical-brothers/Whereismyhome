@@ -10,7 +10,7 @@
         <b-navbar-nav class="navbar-nav me-auto mb-lg-0">
           <b-nav-item href="#"
             ><router-link
-              :to="{ name: 'main' }"
+              :to="{ name: 'home' }"
               class="navbar-brand text-primary fw-bold"
               ><b-icon icon="house" font-scale="2"></b-icon> Where Is My
               Home</router-link
