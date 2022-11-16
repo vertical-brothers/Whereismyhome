@@ -78,6 +78,7 @@
 
 <script>
 import http from "@/api/http.js";
+import { listArticle } from "@/api/board.js";
 import ArticleItem from "@/components/board/ArticleItem.vue";
 export default {
   name: "BoardList",
@@ -100,12 +101,27 @@ export default {
     };
   },
   created() {
-    this.boardlist();
+    let param = {
+      pgno: this.pgno,
+      // spp: 20,
+      key: this.subkey,
+      word: this.word,
+    };
+    // this.boardlist();
+    listArticle(
+      param,
+      (response) => {
+        this.articles = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   methods: {
     boardlist() {
       http
-        .get(`/list?pgno=${this.pgno}&key=${this.subkey}&word=${this.word}`)
+        .get(`/board?pgno=${this.pgno}&key=${this.subkey}&word=${this.word}`)
         .then(({ data }) => {
           this.articles = data;
         })

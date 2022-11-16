@@ -38,9 +38,26 @@ public class HousedealController {
 		return "/apartment/aptapi";
 	}
 
+//	@GetMapping(value = "/search")
+//	@ResponseBody
+//	public ResponseEntity<?> search(@RequestParam Map<String, String> map, Model model) throws Exception {
+//		logger.debug("ApartmentController ! search : {}", map);
+//		try {
+//			List<HouseDealDto> list = housedealService.listAll(map);
+//			logger.debug("ApartmentController ! search : {}",list.size());
+//			if (list != null && !list.isEmpty()) {
+//				return new ResponseEntity<List<HouseDealDto>>(list, HttpStatus.OK);
+//			} else {
+//				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//			}
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
+	
 	@GetMapping(value = "/search")
 	@ResponseBody
-	public ResponseEntity<?> search(@RequestParam Map<String, String> map, Model model) throws Exception {
+	public ResponseEntity<?> search(@RequestParam Map<String, String> map) throws Exception {
 		logger.debug("ApartmentController ! search : {}", map);
 		try {
 			List<HouseDealDto> list = housedealService.listAll(map);

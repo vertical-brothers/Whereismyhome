@@ -24,13 +24,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssafy.board.model.BoardDto;
 import com.ssafy.board.model.service.BoardService;
 import com.ssafy.util.*;
 
-@Controller
+@RestController
 @RequestMapping("/board")
 @CrossOrigin("*")
 public class BoardController {
@@ -45,35 +46,34 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 
-	@ResponseBody
-	@GetMapping("/list")
+	@GetMapping(value="/")
 	private ResponseEntity<List<BoardDto>> list(@RequestParam Map<String, String> map) throws Exception {
+		logger.debug("debug msg board getmapping {}", map);
+		
+		if(map.get("key") == null) map.put("key", "");
+		if(map.get("word") == null) map.put("word", "");
+//		List<BoardDto> list = boardService.listArticle(map);
+//		logger.debug(list.toString());
+//		int articlecnt = boardService.totalArticleCount(map);
+//
+//		int spl = SizeConstant.SIZE_PER_LIST;
+//		int pl = SizeConstant.LIST_SIZE;
 
-		List<BoardDto> list = boardService.listArticle(map);
-		int articlecnt = boardService.totalArticleCount(map);
+//		int pageno = Integer.parseInt(map.get("pgno"));
 
-		int spl = SizeConstant.SIZE_PER_LIST;
-		int pl = SizeConstant.LIST_SIZE;
+//		int startpage = (pageno - 1) / 10 * pl + 1;
+		return null;
+//		int endpage = startpage + 9;
+//		int lastpage = articlecnt / spl + 1;
+//
+//		// 33-20 < 10
+//		if (articlecnt - spl * startpage < spl * pl) { // 전체 개수-현재페이지까지 개수가 지정된 페이지 수 보다 작으면
+//			endpage = articlecnt / spl + 1;
+//		}
+//
+//		ResponseEntity<List<BoardDto>> result = ResponseEntity.ok().body(list);
+//		return result;
 
-		int pageno = Integer.parseInt(map.get("pgno"));
-
-		int startpage = (pageno - 1) / 10 * pl + 1;
-		int endpage = startpage + 9;
-		int lastpage = articlecnt / spl + 1;
-
-		// 33-20 < 10
-		if (articlecnt - spl * startpage < spl * pl) { // 전체 개수-현재페이지까지 개수가 지정된 페이지 수 보다 작으면
-			endpage = articlecnt / spl + 1;
-		}
-
-		ResponseEntity<List<BoardDto>> result = ResponseEntity.ok().body(list);
-		return result;
-
-	}
-
-	@GetMapping("/mvwrite")
-	private String mvWrite() {
-		return "board/write";
 	}
 
 //	@PostMapping("/write")
@@ -98,7 +98,7 @@ public class BoardController {
 ////		}
 //	}
 	@ResponseBody
-	@PostMapping("/write")
+	@PostMapping("/")
 	public ResponseEntity<?> write(@RequestBody BoardDto boardDto) throws Exception {
 		logger.debug("이인재 BoardController board/update {}", boardDto);
 		try {			
@@ -112,7 +112,7 @@ public class BoardController {
 	}
 
 	@ResponseBody
-	@GetMapping("/detail/{articleNo}")	
+	@GetMapping("/{articleNo}")	
 	public ResponseEntity<?> view(@PathVariable int articleNo) throws Exception {
 		logger.debug("input <========== {}", articleNo);
 		boardService.updateHit(articleNo);
@@ -123,26 +123,26 @@ public class BoardController {
 		return result;
 	}
 
-	@GetMapping("/mvmodify")
-	private String mvModify(@RequestParam Map<String, String> map, HttpSession session, Model model) {
-		try {
-//			MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-//			if(memberDto != null) {
-			BoardDto boardDto = boardService.getArticle(Integer.parseInt(map.get("articleno")));
-			model.addAttribute("article", boardDto);
-			System.out.println(map);
-			return "/board/modify";
-//			} else
-//				return "/user/login";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("msg", "글내용 얻는 중 문제 발생!!!");
-			return "/error/error";
-		}
-	}
+//	@GetMapping("/mvmodify")
+//	private String mvModify(@RequestParam Map<String, String> map, HttpSession session, Model model) {
+//		try {
+////			MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+////			if(memberDto != null) {
+//			BoardDto boardDto = boardService.getArticle(Integer.parseInt(map.get("articleno")));
+//			model.addAttribute("article", boardDto);
+//			System.out.println(map);
+//			return "/board/modify";
+////			} else
+////				return "/user/login";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			model.addAttribute("msg", "글내용 얻는 중 문제 발생!!!");
+//			return "/error/error";
+//		}
+//	}
 
 	@ResponseBody
-	@PutMapping("/modify")
+	@PutMapping("/")
 	private ResponseEntity<?> modify(@RequestBody BoardDto boardDto, HttpSession session, Model model,
 			RedirectAttributes redirectAttributes) {
 		logger.debug("BoardController board/update {}", boardDto);
@@ -161,7 +161,7 @@ public class BoardController {
 
 	}
 
-	@DeleteMapping(value = "/delete/{articleNo}")
+	@DeleteMapping(value = "/{articleNo}")
 	private ResponseEntity<String> delete(@PathVariable int articleNo, HttpSession session, Model model,
 			RedirectAttributes redirectAttributes) {
 		logger.debug("BoardController delete {}.",articleNo);

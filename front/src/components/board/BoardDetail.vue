@@ -78,7 +78,7 @@ export default {
     let no = this.$route.params.no;
 
     http
-      .get(`/detail/${no}`)
+      .get(`/${no}`)
       .then(({ data }) => {
         this.articleNo = data.articleNo;
         this.userId = data.userId;

@@ -82,6 +82,4 @@ public class BoardDto {
 
 	public BoardDto() {
 	}
-	
-	
 }
