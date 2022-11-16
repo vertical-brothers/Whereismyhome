@@ -31,9 +31,13 @@ import com.ssafy.board.model.BoardDto;
 import com.ssafy.board.model.service.BoardService;
 import com.ssafy.util.*;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/board")
 @CrossOrigin("*")
+@Api("게시판 컨트롤러")
 public class BoardController {
 
 	private final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -46,6 +50,7 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 
+	@ApiOperation(value = "게시판 글목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
 	@GetMapping(value="/")
 	private ResponseEntity<List<BoardDto>> list(@RequestParam Map<String, String> map) throws Exception {
 		logger.debug("debug msg board getmapping {}", map);

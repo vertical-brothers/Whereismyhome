@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import BoardView from "@/views/BoardView.vue";
 import AptView from "@/views/AptView.vue";
-
 import BoardList from "@/components/board/BoardList.vue";
 import BoardDetail from "@/components/board/BoardDetail.vue";
 import BoardModify from "@/components/board/BoardModify.vue";
