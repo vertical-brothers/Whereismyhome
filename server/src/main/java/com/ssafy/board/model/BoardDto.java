@@ -14,13 +14,6 @@ public class BoardDto {
 		return articleNo;
 	}
 
-	public BoardDto(String userId, String subject, String content) {
-		super();
-		this.userId = userId;
-		this.subject = subject;
-		this.content = content;
-	}
-
 	public void setArticleNo(int articleNo) {
 		this.articleNo = articleNo;
 	}
@@ -79,4 +72,16 @@ public class BoardDto {
 		this.registerTime = registerTime;
 	}
 
+	
+	public BoardDto(String userId, String subject, String content) {
+
+		this.userId = userId;
+		this.subject = subject;
+		this.content = content;
+	}
+
+	public BoardDto() {
+	}
+	
+	
 }

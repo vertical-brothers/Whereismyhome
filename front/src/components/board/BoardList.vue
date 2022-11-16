@@ -11,7 +11,9 @@
         <div class="col-lg-8 col-md-10 col-sm-12">
           <div class="row align-self-center mb-2">
             <div class="col-md-2 text-start">
-              <b-button variant="btn btn-outline-primary btn-sm"
+              <b-button
+                variant="btn btn-outline-primary btn-sm"
+                @click="moveWrite"
                 >글쓰기</b-button
               >
             </div>
@@ -30,7 +32,12 @@
                     class="form-control"
                     placeholder="검색어..."
                   />
-                  <b-button id="btn-search" class="btn btn-dark" type="button">
+                  <b-button
+                    id="btn-search"
+                    class="btn btn-dark"
+                    type="button"
+                    @click="moveWrite"
+                  >
                     검색
                   </b-button>
                 </div>
@@ -105,6 +112,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    moveWrite() {
+      this.$router.push(`/board/write`);
     },
   },
 };

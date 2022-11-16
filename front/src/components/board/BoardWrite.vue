@@ -102,7 +102,7 @@ export default {
       };
       console.log(myData);
       http
-        .post(`/write`, myData)
+        .post("/write", myData)
         .then(({ data }) => {
           if (data != null) alert("성공적으로 글을 작성하였습니다.");
           this.moveList();
