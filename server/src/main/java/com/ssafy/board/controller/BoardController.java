@@ -101,8 +101,7 @@ public class BoardController {
 	@PostMapping("/write")
 	public ResponseEntity<?> write(@RequestBody BoardDto boardDto) throws Exception {
 		logger.debug("이인재 BoardController board/update {}", boardDto);
-		try {
-			
+		try {			
 			boardService.writeArticle(boardDto);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}
@@ -113,7 +112,7 @@ public class BoardController {
 	}
 
 	@ResponseBody
-	@GetMapping("/detail/{articleNo}")
+	@GetMapping("/detail/{articleNo}")	
 	public ResponseEntity<?> view(@PathVariable int articleNo) throws Exception {
 		logger.debug("input <========== {}", articleNo);
 		boardService.updateHit(articleNo);
