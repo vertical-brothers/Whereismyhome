@@ -22,19 +22,28 @@ public class StarServiceImpl implements StarService {
 	}
 	@Override
 	@Transactional
-	public void addStar(Map<String, String> map) throws Exception {
-		apartmentMapper.addStar(map);
+	public void addStar(StarDto starDto) throws Exception {
+		apartmentMapper.addStar(starDto);
 	}
 
 	@Override
-	public List<StarDto> listStar(String userid) throws Exception {
-		return apartmentMapper.listStar(userid);
+	public List<StarDto> listStar(String userId) throws Exception {
+		return apartmentMapper.listStar(userId);
 	}
 
 	@Override
 	@Transactional
 	public void deleteStar(int starNo) throws Exception {
 		apartmentMapper.deleteStar(starNo);
+	}
+	@Override
+	public void addLog(String aptCode) throws Exception {
+		apartmentMapper.addLog(aptCode);
+	}
+	
+	@Override
+	public StarDto getStar(StarDto starDto) throws Exception {
+		return apartmentMapper.getStar(starDto);
 	}
 	
 	

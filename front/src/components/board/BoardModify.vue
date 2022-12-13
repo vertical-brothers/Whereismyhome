@@ -21,7 +21,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="content" class="form-label">내용 : </label>
+          <!-- <label for="content" class="form-label">내용 : </label>
           <textarea
             v-model="content"
             class="form-control"
@@ -30,7 +30,24 @@
             ref="content"
             rows="7"
           >
-          </textarea>
+          </textarea> -->
+          <editor
+            v-model="content"
+            :api-key="tinymcekey"
+            :init="{
+              height: 500,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount',
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help',
+            }"
+          />
         </div>
         <div class="col-auto text-center">
           <button
@@ -45,6 +62,7 @@
             type="button"
             id="btn-list"
             class="btn btn-outline-danger mb-3"
+            @click="moveList()"
           >
             목록으로이동...
           </button>
@@ -56,6 +74,8 @@
 
 <script>
 import http from "@/api/http.js";
+import { TINY_MCE_KEY } from "@/config";
+import Editor from "@tinymce/tinymce-vue";
 export default {
   name: "BoardModify",
   data() {
@@ -66,12 +86,13 @@ export default {
       content: "",
       registerTime: "",
       hit: 0,
+      tinymcekey: TINY_MCE_KEY,
     };
   },
   created() {
     let no = this.$route.params.no;
     http
-      .get(`/detail/${no}`)
+      .get(`/board/${no}`)
       .then(({ data }) => {
         this.articleNo = data.articleNo;
         this.userId = data.userId;
@@ -84,9 +105,10 @@ export default {
         console.log(error);
       });
   },
+  components: { editor: Editor },
   methods: {
-    moveBoard(no) {
-      this.$router.push(`/board/detail/${no}`);
+    moveBoard() {
+      this.$router.push(`/board/detail/${this.articleNo}`);
     },
     moveList() {
       this.$router.push(`/board`);
@@ -99,10 +121,10 @@ export default {
         content: this.content,
       };
       http
-        .put(`/modify/`, myData)
+        .put(`/board/`, myData)
         .then(({ data }) => {
           if (data != null) alert("성공적으로 글을 수정하였습니다.");
-          this.moveBoard(this.articleNo);
+          this.moveBoard();
         })
         .catch(() => {
           alert("글수정에 실패하였습니다.");

@@ -4,13 +4,13 @@ const api = apiInstance();
 
 function listArticle(param, success, fail) {
   api
-    .get(`/board/?pgno=${param.pgno}&key=${param.key}&word=${param.word}`)
+    .get(`/board?pgno=${param.pgno}&key=${param.key}&word=${param.word}`)
     .then(success)
     .catch(fail);
 }
 
 function writeArticle(article, success, fail) {
-  api.post(`/board`, JSON.stringify(article)).then(success).catch(fail);
+  api.post(`/board/`, JSON.stringify(article)).then(success).catch(fail);
 }
 
 function getArticle(articleno, success, fail) {

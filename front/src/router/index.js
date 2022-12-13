@@ -2,13 +2,24 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import BoardView from "@/views/BoardView.vue";
+import UserView from "@/views/UserView.vue";
 import AptView from "@/views/AptView.vue";
+import StarView from "@/views/StarView.vue";
+import AdminView from "@/views/AdminView";
 
 import MainHome from "@/components/home/MainHome.vue";
 import BoardList from "@/components/board/BoardList.vue";
 import BoardDetail from "@/components/board/BoardDetail.vue";
 import BoardModify from "@/components/board/BoardModify.vue";
 import BoardWrite from "@/components/board/BoardWrite.vue";
+import KakaoMap from "@/components/apt/map/KakaoMap.vue";
+import AptDetail from "@/components/apt/info/AptOverlay.vue";
+
+import UserLogin from "@/components/user/UserLogin";
+import UserRegister from "@/components/user/UserRegister";
+import UserMypage from "@/components/user/UserMypage";
+
+import StarList from "@/components/star/StarList";
 
 Vue.use(VueRouter);
 
@@ -66,9 +77,59 @@ const routes = [
   {
     path: "/apt",
     name: "apt",
-    commentt: AptView,
-    redirect: "/apt/aptList",
-    children: [],
+    component: AptView,
+    // redirect: "/apt/",
+    children: [
+      {
+        path: "map",
+        name: "map",
+        component: KakaoMap,
+      },
+      {
+        path: "AptDetail",
+        name: "AptDetail",
+        component: AptDetail,
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: UserView,
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: UserLogin,
+      },
+      {
+        path: "join",
+        name: "join",
+        component: UserRegister,
+      },
+      {
+        path: "mypage",
+        name: "mypage",
+        component: UserMypage,
+      },
+    ],
+  },
+  {
+    path: "/star",
+    name: "star",
+    component: StarView,
+    children: [
+      {
+        path: "list",
+        name: "starList",
+        component: StarList,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
   },
 ];
 

@@ -59,7 +59,7 @@
       <div id="tablediv" class="col-md-5">
         <script
           type="text/javascript"
-          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=40d9213eaf25e5d9bab5185da885fe33&libraries=services"
+          src="//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=40d9213eaf25e5d9bab5185da885fe33&libraries=services"
         ></script>
         <div
           id="_searchresult"
@@ -105,3 +105,4 @@ export default {
   },
 };
 </script>
+Footer

@@ -22,16 +22,23 @@
               placeholder="제목 입력..."
             ></b-form-input>
           </b-form-group>
-
-          <b-form-group id="content-group" label="내용:" label-for="content">
-            <b-form-textarea
-              id="content"
-              v-model="article.content"
-              placeholder="내용 입력..."
-              rows="10"
-              max-rows="15"
-            ></b-form-textarea>
-          </b-form-group>
+          <editor
+            v-model="article.content"
+            :api-key="tinymcekey"
+            :init="{
+              height: 500,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount',
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help',
+            }"
+          />
 
           <b-button type="submit" variant="primary" class="m-1"
             >글작성</b-button
@@ -46,27 +53,36 @@
 
 <script>
 import http from "@/api/http.js";
+import { TINY_MCE_KEY } from "@/config";
+import { mapState } from "vuex";
+import Editor from "@tinymce/tinymce-vue";
+
+const memberStore = "memberStore";
+
 export default {
   name: "BoardWrite",
   data() {
     return {
       article: {
         articleno: 0,
-        userid: "ssafy",
+        userid: "",
         subject: "",
         content: "",
       },
+      tinymcekey: TINY_MCE_KEY,
       isUserid: false,
     };
   },
   created() {},
+  components: { editor: Editor },
   methods: {
     moveList() {
       this.$router.push(`/board`);
     },
     onSubmit(event) {
       event.preventDefault();
-
+      console.log(this.userInfo);
+      // this.article.userId = this.userInfo.userId;
       let err = true;
       let msg = "";
 
@@ -80,7 +96,6 @@ export default {
         (err = false),
         this.$refs.content.focus());
 
-      alert("middle test");
       if (!err) {
         alert(msg);
       } else {
@@ -96,13 +111,12 @@ export default {
     },
     writeBoard() {
       let myData = {
-        userId: "ssafy",
+        userId: this.userInfo.userId,
         subject: this.article.subject,
         content: this.article.content,
       };
-      console.log(myData);
       http
-        .post("/write", myData)
+        .post("/board/", myData)
         .then(({ data }) => {
           if (data != null) alert("성공적으로 글을 작성하였습니다.");
           this.moveList();
@@ -112,6 +126,9 @@ export default {
           this.moveList();
         });
     },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
 };
 </script>
